@@ -1,4 +1,4 @@
-import { Clock, Sparkles, ShieldCheck } from "lucide-react";
+import { Truck, Sparkles, ShieldCheck } from "lucide-react";
 
 export const WA_LINK =
   "https://wa.me/59160341419?text=Hola%20Lusan%20Food%2C%20quiero%20hacer%20un%20pedido";
@@ -30,9 +30,9 @@ export const MENU_ITEMS = [
 
 export const VALUES = [
   {
-    icon: Clock,
-    title: "Rápido",
-    desc: "Tu pedido en la puerta de tu casa en tiempo récord.",
+    icon: Truck,
+    title: "Entregas",
+    desc: "Punto de entrega: avenida Sumaj llajta y Pillpintu a dos cuadras de la circunvalación También enviamos por delivery con recargo.",
   },
   {
     icon: Sparkles,
