@@ -49,16 +49,28 @@ export default function App() {
             </span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/80">
-            <button onClick={() => scrollTo("menu")} className="hover:text-flameOrange transition-colors">
+            <button
+              onClick={() => scrollTo("menu")}
+              className="hover:text-flameOrange transition-colors"
+            >
               Menú
             </button>
-            <button onClick={() => scrollTo("nosotros")} className="hover:text-flameOrange transition-colors">
+            <button
+              onClick={() => scrollTo("nosotros")}
+              className="hover:text-flameOrange transition-colors"
+            >
               Nosotros
             </button>
-            <button onClick={() => scrollTo("pedidos")} className="hover:text-flameOrange transition-colors">
+            <button
+              onClick={() => scrollTo("pedidos")}
+              className="hover:text-flameOrange transition-colors"
+            >
               Pedidos
             </button>
-            <button onClick={() => scrollTo("opiniones")} className="hover:text-flameOrange transition-colors">
+            <button
+              onClick={() => scrollTo("opiniones")}
+              className="hover:text-flameOrange transition-colors"
+            >
               Opiniones
             </button>
           </div>
@@ -70,16 +82,27 @@ export default function App() {
           >
             <MessageCircle size={16} /> Pedir ahora
           </a>
-          <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
+          <button
+            className="md:hidden text-white"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             {menuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
         {menuOpen && (
           <div className="md:hidden bg-black/95 px-6 py-6 flex flex-col gap-4 text-white/90">
-            <button onClick={() => scrollTo("menu")} className="text-left">Menú</button>
-            <button onClick={() => scrollTo("nosotros")} className="text-left">Nosotros</button>
-            <button onClick={() => scrollTo("pedidos")} className="text-left">Pedidos</button>
-            <button onClick={() => scrollTo("opiniones")} className="text-left">Opiniones</button>
+            <button onClick={() => scrollTo("menu")} className="text-left">
+              Menú
+            </button>
+            <button onClick={() => scrollTo("nosotros")} className="text-left">
+              Nosotros
+            </button>
+            <button onClick={() => scrollTo("pedidos")} className="text-left">
+              Pedidos
+            </button>
+            <button onClick={() => scrollTo("opiniones")} className="text-left">
+              Opiniones
+            </button>
             <a
               href={WA_LINK}
               className="flex items-center gap-2 bg-gradient-to-r from-flameRed to-flameGold text-black font-bold text-sm px-5 py-3 rounded-full justify-center mt-2"
@@ -94,7 +117,12 @@ export default function App() {
       <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,90,0,0.18),transparent_60%)]" />
         {[...Array(10)].map((_, i) => (
-          <Ember key={i} delay={i * 0.6} left={5 + i * 9} size={6 + (i % 3) * 4} />
+          <Ember
+            key={i}
+            delay={i * 0.6}
+            left={5 + i * 9}
+            size={6 + (i % 3) * 4}
+          />
         ))}
         <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center">
           <FlameLogo
@@ -111,7 +139,8 @@ export default function App() {
             Hecho para antojar.
           </p>
           <p className="mt-3 max-w-md text-white/50 text-sm md:text-base">
-            Sabor casero, ingredientes frescos y ese toque que te hace pedir de nuevo.
+            Sabor casero, ingredientes frescos y ese toque que te hace pedir de
+            nuevo.
           </p>
           <div className="mt-9 flex flex-col sm:flex-row gap-4">
             <a
@@ -136,7 +165,10 @@ export default function App() {
       </section>
 
       {/* Value props */}
-      <section id="nosotros" className="relative py-24 px-6 bg-gradient-to-b from-ink to-ink2">
+      <section
+        id="nosotros"
+        className="relative py-24 px-6 bg-gradient-to-b from-ink to-ink2"
+      >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs uppercase tracking-[0.3em] text-flameOrange font-semibold">
@@ -156,7 +188,9 @@ export default function App() {
                   <v.icon size={26} className="text-black" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{v.title}</h3>
-                <p className="text-white/55 text-sm leading-relaxed">{v.desc}</p>
+                <p className="text-white/55 text-sm leading-relaxed">
+                  {v.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -171,7 +205,7 @@ export default function App() {
               Nuestro menú
             </span>
             <h2 className="font-display text-3xl md:text-4xl font-bold mt-3">
-              Antojos que sí llegan
+              No te quedes con las ganas, pide tu favorito
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -180,8 +214,17 @@ export default function App() {
                 key={i}
                 className="card-3d relative bg-gradient-to-b from-[#171310] to-[#0d0b09] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_45px_rgba(0,0,0,0.5)]"
               >
-                <div className="h-40 relative flex items-center justify-center bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
-                  <Flame size={48} className="text-flameGold/70" />
+                <div className="h-70 md:h-80 relative flex items-center justify-center bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={`${item.name} — imagen`}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Flame size={48} className="text-flameGold/70" />
+                  )}
+                  <div className="absolute inset-0 bg-black/25" />
                   {item.tag && (
                     <span className="absolute top-3 left-3 text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r from-flameRed to-flameGold text-black px-3 py-1 rounded-full">
                       {item.tag}
@@ -190,12 +233,16 @@ export default function App() {
                 </div>
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="font-bold text-lg leading-tight">{item.name}</h3>
+                    <h3 className="font-bold text-lg leading-tight">
+                      {item.name}
+                    </h3>
                     <span className="font-display font-extrabold text-flameGold whitespace-nowrap">
                       Bs {item.price}
                     </span>
                   </div>
-                  <p className="text-white/50 text-sm mb-5 leading-relaxed">{item.desc}</p>
+                  <p className="text-white/50 text-sm mb-5 leading-relaxed">
+                    {item.desc}
+                  </p>
                   <a
                     href={WA_LINK}
                     target="_blank"
@@ -220,10 +267,12 @@ export default function App() {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 px-8 py-10 md:px-12">
             <div>
               <h3 className="font-display text-2xl md:text-3xl font-extrabold text-black">
-                Combo Familiar Lusan
+                Combo La Suprema
               </h3>
               <p className="text-black/70 font-medium mt-1">
-                4 piezas de broaster + papas grandes + gaseosa 2L
+                Papa frita, chorizo, queso muzarella derretido, alitas de pollo,
+                costillas de cerdo, tocino + 2 gaseosas de 500ml.{" "}
+                <span className="font-bold">Bs 89</span>
               </p>
             </div>
             <a
@@ -248,7 +297,8 @@ export default function App() {
             Pide directo por WhatsApp
           </h2>
           <p className="text-white/55 mb-8 max-w-lg mx-auto">
-            Escríbenos, arma tu pedido y te confirmamos el tiempo de entrega al instante.
+            Escríbenos, arma tu pedido y te confirmamos el tiempo de entrega al
+            instante.
           </p>
           <a
             href={WA_LINK}
@@ -265,7 +315,10 @@ export default function App() {
       </section>
 
       {/* Testimonials */}
-      <section id="opiniones" className="relative py-24 px-6 bg-gradient-to-b from-ink2 to-ink">
+      <section
+        id="opiniones"
+        className="relative py-24 px-6 bg-gradient-to-b from-ink2 to-ink"
+      >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs uppercase tracking-[0.3em] text-flameOrange font-semibold">
@@ -286,11 +339,17 @@ export default function App() {
                     <Star
                       key={s}
                       size={16}
-                      className={s < t.stars ? "text-flameGold fill-flameGold" : "text-white/20"}
+                      className={
+                        s < t.stars
+                          ? "text-flameGold fill-flameGold"
+                          : "text-white/20"
+                      }
                     />
                   ))}
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed mb-5">"{t.quote}"</p>
+                <p className="text-white/70 text-sm leading-relaxed mb-5">
+                  "{t.quote}"
+                </p>
                 <p className="font-semibold text-sm">{t.name}</p>
               </div>
             ))}
@@ -307,15 +366,16 @@ export default function App() {
               <span className="font-display font-extrabold">LUSAN FOOD</span>
             </div>
             <p className="text-white/45 text-sm leading-relaxed">
-              Hecho para antojar. Comida rápida con sabor casero, entregada donde estés.
+              Hecho para antojar. Comida rápida con sabor casero, entregada
+              donde estés.
             </p>
           </div>
           <div>
             <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-white/70">
               Horario
             </h4>
-            <p className="text-white/45 text-sm">Todos los días</p>
-            <p className="text-white/45 text-sm">12:00 pm – 11:00 pm</p>
+            <p className="text-white/45 text-sm"></p>
+            <p className="text-white/45 text-sm">16:30 pm – 21:00 pm</p>
           </div>
           <div>
             <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-white/70">
@@ -344,7 +404,8 @@ export default function App() {
           </div>
         </div>
         <div className="max-w-6xl mx-auto pt-6 border-t border-white/10 text-center text-white/30 text-xs">
-          © {new Date().getFullYear()} Lusan Food. Todos los derechos reservados.
+          © {new Date().getFullYear()} Lusan Food. Todos los derechos
+          reservados.
         </div>
       </footer>
     </div>
