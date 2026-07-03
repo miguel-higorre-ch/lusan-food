@@ -214,7 +214,7 @@ export default function App() {
                 key={i}
                 className="card-3d relative bg-gradient-to-b from-[#171310] to-[#0d0b09] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_45px_rgba(0,0,0,0.5)]"
               >
-                <div className="h-70 md:h-80 relative flex items-center justify-center bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
+                <div className="h-56 md:h-64 relative flex items-center justify-center bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
                   {item.image ? (
                     <img
                       src={item.image}
