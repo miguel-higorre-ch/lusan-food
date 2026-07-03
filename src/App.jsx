@@ -16,11 +16,24 @@ import { WA_LINK, MENU_ITEMS, VALUES, TESTIMONIALS } from "./data.js";
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  const [visits, setVisits] = useState(0);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("stats")) {
+      setShowStats(true);
+      const stored = localStorage.getItem("lusan_visits") || "0";
+      const count = Number(stored) + 1;
+      localStorage.setItem("lusan_visits", String(count));
+      setVisits(count);
+    }
   }, []);
 
   const scrollTo = (id) => {
@@ -406,6 +419,11 @@ export default function App() {
         <div className="max-w-6xl mx-auto pt-6 border-t border-white/10 text-center text-white/30 text-xs">
           © {new Date().getFullYear()} Lusan Food. Todos los derechos
           reservados.
+          {showStats && (
+            <span className="block mt-1 text-flameOrange/60 font-mono text-[10px]">
+              👁 visitas: {visits}
+            </span>
+          )}
         </div>
       </footer>
     </div>
