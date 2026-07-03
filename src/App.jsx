@@ -40,7 +40,7 @@ export default function App() {
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FlameLogo className="w-8 h-9" />
+            <FlameLogo className="w-10 h-11" />
             <span className="font-display font-extrabold tracking-tight text-lg">
               LUSAN{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-flameGold to-flameRed">
@@ -126,7 +126,7 @@ export default function App() {
         ))}
         <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center">
           <FlameLogo
-            className="w-32 h-36 md:w-44 md:h-48 animate-floatSlow animate-glowPulse mb-6"
+            className="w-52 h-60 md:w-80 md:h-72 animate-floatSlow animate-glowPulse mb-6"
             glow
           />
           <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]">
