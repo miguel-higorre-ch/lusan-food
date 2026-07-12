@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import FlameLogo from "./components/FlameLogo.jsx";
 import Ember from "./components/Ember.jsx";
-import { WA_LINK, MENU_ITEMS, VALUES, TESTIMONIALS } from "./data.js";
+import TikTokIcon from "./components/TikTokIcon.jsx";
+import { WA_LINK, MENU_ITEMS, VALUES, TESTIMONIALS, SOCIAL } from "./data.js";
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -401,17 +402,22 @@ export default function App() {
               <MessageCircle size={15} /> Pedidos: 60341419
             </a>
             <div className="flex gap-3 mt-3">
+              
               <a
-                href="#"
-                className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-flameOrange hover:text-flameOrange transition-colors"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="#"
+                href={SOCIAL.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-flameOrange hover:text-flameOrange transition-colors"
               >
                 <Facebook size={16} />
+              </a>
+              <a
+                href={SOCIAL.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-flameOrange hover:text-flameOrange transition-colors"
+              >
+                <TikTokIcon size={16} />
               </a>
             </div>
           </div>

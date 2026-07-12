@@ -3,6 +3,12 @@ import { Truck, Sparkles, ShieldCheck } from "lucide-react";
 export const WA_LINK =
   "https://wa.me/59160341419?text=Hola%20Lusan%20Food%2C%20quiero%20hacer%20un%20pedido";
 
+export const SOCIAL = {
+  instagram: "https://www.instagram.com/lusanfood",
+  facebook: "https://www.facebook.com/profile.php?id=61574354315459",
+  tiktok: "https://www.tiktok.com/@lusanfood",
+};
+
 export const MENU_ITEMS = [
   {
     name: "La Suprema",
@@ -24,6 +30,13 @@ export const MENU_ITEMS = [
     price: "21",
     tag: null,
     image: "/images/menu/la-clasica.jpeg",
+  },
+  {
+    name: "SalchiCostilla ",
+    desc: "Papa frita, platano frito, chorizo, costilla de cerdo",
+    price: "28",
+    tag: null,
+    image: "/images/menu/salchi-costilla.jpeg",
   },
   // Removed: Papas Lusan, Wrap Picante, Limonada de Coco
 ];
