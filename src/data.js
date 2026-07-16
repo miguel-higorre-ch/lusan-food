@@ -3,6 +3,11 @@ import { Truck, Sparkles, ShieldCheck } from "lucide-react";
 export const WA_LINK =
   "https://wa.me/59160341419?text=Hola%20Lusan%20Food%2C%20quiero%20hacer%20un%20pedido";
 
+export const generateWhatsAppLink = (productName) => {
+  const encodedName = encodeURIComponent(productName);
+  return `https://wa.me/59160341419?text=Hola%20Lusan%20Food%2C%20quiero%20pedir%20${encodedName}`;
+};
+
 export const SOCIAL = {
   instagram: "https://www.instagram.com/lusanfood",
   facebook: "https://www.facebook.com/profile.php?id=61574354315459",

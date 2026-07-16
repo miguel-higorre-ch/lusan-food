@@ -12,7 +12,7 @@ import {
 import FlameLogo from "./components/FlameLogo.jsx";
 import Ember from "./components/Ember.jsx";
 import TikTokIcon from "./components/TikTokIcon.jsx";
-import { WA_LINK, MENU_ITEMS, VALUES, TESTIMONIALS, SOCIAL } from "./data.js";
+import { WA_LINK, generateWhatsAppLink, MENU_ITEMS, VALUES, TESTIMONIALS, SOCIAL } from "./data.js";
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -258,7 +258,7 @@ export default function App() {
                     {item.desc}
                   </p>
                   <a
-                    href={WA_LINK}
+                    href={generateWhatsAppLink(item.name)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all"
