@@ -9,7 +9,7 @@ export const generateWhatsAppLink = (productName) => {
 };
 
 export const SOCIAL = {
-  instagram: "https://www.instagram.com/lusanfood",
+  instagram: "https://www.instagram.com/lusanfod",
   facebook: "https://www.facebook.com/profile.php?id=61574354315459",
   tiktok: "https://www.tiktok.com/@lusanfood",
 };
@@ -50,7 +50,7 @@ export const VALUES = [
   {
     icon: Truck,
     title: "Entregas",
-    desc: "Punto de entrega: avenida Sumaj llajta y Pillpintu a dos cuadras de la circunvalación También enviamos por delivery con recargo.",
+    desc: "Disponible para retiro acordado previamente o para envío con recargo a domicilio.",
   },
   {
     icon: Sparkles,
