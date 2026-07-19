@@ -26,6 +26,10 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [addedItem, setAddedItem] = useState(null);
+  const [loadedImages, setLoadedImages] = useState({});
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -44,12 +48,47 @@ export default function App() {
     }
   }, []);
 
+  useEffect(() => {
+    const savedCart = localStorage.getItem("lusan_cart");
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (e) {
+        console.error("Failed to parse saved cart:", e);
+      }
+    }
+    const savedLoadedImages = localStorage.getItem("lusan_loaded_images");
+    if (savedLoadedImages) {
+      try {
+        setLoadedImages(JSON.parse(savedLoadedImages));
+      } catch (e) {
+        console.error("Failed to parse saved loaded images:", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("lusan_cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("lusan_loaded_images", JSON.stringify(loadedImages));
+  }, [loadedImages]);
+
+  useEffect(() => {
+    if (addedItem) {
+      const timer = setTimeout(() => setAddedItem(null), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [addedItem]);
+
   const scrollTo = (id) => {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const addToCart = (item) => {
+    setAddedItem(item.name);
     setCart((prevCart) => {
       const existingItem = prevCart.find((i) => i.name === item.name);
       if (existingItem) {
@@ -87,7 +126,8 @@ export default function App() {
       .join("\n");
     
     const total = cart.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
-    const fullMessage = `Hola Lusan Food, quiero hacer un pedido:\n\n${message}\n\nTotal: Bs ${total}`;
+    const namePart = customerName ? `Mi nombre es: ${customerName}\n\n` : "";
+    const fullMessage = `Hola Lusan Food, quiero hacer un pedido:\n\n${namePart}${message}\n\nTotal: Bs ${total}`;
     
     return `https://wa.me/59160341419?text=${encodeURIComponent(fullMessage)}`;
   };
@@ -304,11 +344,25 @@ export default function App() {
               >
                 <div className="h-56 md:h-64 relative flex items-center justify-center bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
                   {item.image ? (
-                    <img
-                      src={item.image}
-                      alt={`${item.name} — imagen`}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
+                    <>
+                      {!loadedImages[item.name] && !imageErrors[item.name] && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-8 h-8 border-2 border-flameOrange/30 border-t-flameOrange rounded-full animate-spin" />
+                        </div>
+                      )}
+                      {imageErrors[item.name] ? (
+                        <Flame size={48} className="text-flameGold/70" />
+                      ) : (
+                        <img
+                          src={item.image}
+                          alt={`${item.name} — imagen`}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onLoad={() => setLoadedImages((prev) => ({ ...prev, [item.name]: true }))}
+                          onError={() => setImageErrors((prev) => ({ ...prev, [item.name]: true }))}
+                          style={{ opacity: loadedImages[item.name] ? 1 : 0 }}
+                        />
+                      )}
+                    </>
                   ) : (
                     <Flame size={48} className="text-flameGold/70" />
                   )}
@@ -321,9 +375,16 @@ export default function App() {
                 </div>
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="font-bold text-lg leading-tight">
-                      {item.name}
-                    </h3>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-bold text-lg leading-tight">
+                        {item.name}
+                      </h3>
+                      {cart.find((i) => i.name === item.name)?.quantity > 0 && (
+                        <span className="bg-flameRed text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                          {cart.find((i) => i.name === item.name)?.quantity}
+                        </span>
+                      )}
+                    </div>
                     <span className="font-display font-extrabold text-flameGold whitespace-nowrap">
                       Bs {item.price}
                     </span>
@@ -333,7 +394,9 @@ export default function App() {
                   </p>
                   <button
                     onClick={() => addToCart(item)}
-                    className="flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all"
+                    className={`flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all ${
+                      addedItem === item.name ? "scale-95 bg-flameOrange/20" : ""
+                    }`}
                   >
                     <Plus size={15} /> Agregar al pedido
                   </button>
@@ -532,8 +595,37 @@ export default function App() {
                       key={index}
                       className="flex items-center gap-4 bg-white/[0.03] border border-white/5 rounded-xl p-4"
                     >
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-sm">{item.name}</h3>
+                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
+                        {item.image ? (
+                          <>
+                            {!loadedImages[item.name] && !imageErrors[item.name] && (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <div className="w-4 h-4 border-2 border-flameOrange/30 border-t-flameOrange rounded-full animate-spin" />
+                              </div>
+                            )}
+                            {imageErrors[item.name] ? (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <Flame size={20} className="text-flameGold/70" />
+                              </div>
+                            ) : (
+                              <img
+                                src={item.image}
+                                alt={item.name}
+                                className="w-full h-full object-cover"
+                                onLoad={() => setLoadedImages((prev) => ({ ...prev, [item.name]: true }))}
+                                onError={() => setImageErrors((prev) => ({ ...prev, [item.name]: true }))}
+                                style={{ opacity: loadedImages[item.name] ? 1 : 0 }}
+                              />
+                            )}
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <Flame size={24} className="text-flameGold/70" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-sm truncate">{item.name}</h3>
                         <p className="text-flameGold text-sm font-bold">Bs {item.price}</p>
                       </div>
                       <div className="flex items-center gap-2">
@@ -564,6 +656,16 @@ export default function App() {
             </div>
             {cart.length > 0 && (
               <div className="p-6 border-t border-white/10">
+                <div className="mb-4">
+                  <label className="block text-white/70 text-sm mb-2">Tu nombre (opcional)</label>
+                  <input
+                    type="text"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder="Escribe tu nombre..."
+                    className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-flameOrange/50 transition-colors"
+                  />
+                </div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-white/70">Total</span>
                   <span className="font-display font-extrabold text-2xl text-flameGold">
@@ -610,7 +712,7 @@ export default function App() {
                 <>
                   <h3 className="font-display text-xl font-bold mb-3">Confirmar pedido</h3>
                   <p className="text-white/70 mb-6">
-                    ¿Enviar pedido por WhatsApp y limpiar el carrito?
+                    ¿Enviar pedido por WhatsApp y vaciar el carrito?
                   </p>
                   <div className="flex gap-3">
                     <button
@@ -637,6 +739,21 @@ export default function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Floating Cart Button */}
+      {cart.length > 0 && (
+        <button
+          onClick={() => setCartOpen(true)}
+          className="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-flameRed to-flameGold text-black p-4 rounded-full shadow-[0_8px_24px_rgba(255,120,0,0.4)] hover:shadow-[0_12px_32px_rgba(255,120,0,0.6)] hover:-translate-y-1 transition-all"
+        >
+          <div className="relative">
+            <ShoppingCart size={24} />
+            <span className="absolute -top-3 -right-3 bg-black text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+              {cart.reduce((sum, item) => sum + item.quantity, 0)}
+            </span>
+          </div>
+        </button>
       )}
     </div>
   );
