@@ -16,6 +16,7 @@ import {
 import FlameLogo from "./components/FlameLogo.jsx";
 import Ember from "./components/Ember.jsx";
 import TikTokIcon from "./components/TikTokIcon.jsx";
+import AnimatedBorder from "./components/AnimatedBorder.jsx";
 import { WA_LINK, generateWhatsAppLink, MENU_ITEMS, VALUES, TESTIMONIALS, SOCIAL } from "./data.js";
 
 export default function App() {
@@ -342,6 +343,7 @@ export default function App() {
                 key={i}
                 className="card-3d relative bg-gradient-to-b from-[#171310] to-[#0d0b09] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_45px_rgba(0,0,0,0.5)]"
               >
+                <AnimatedBorder size={200} duration={4} delay={i * 0.5} />
                 <div className="h-56 md:h-64 relative flex items-center justify-center bg-gradient-to-br from-[#3a1a05] via-[#5c2200] to-ink">
                   {item.image ? (
                     <>
@@ -392,14 +394,17 @@ export default function App() {
                   <p className="text-white/50 text-sm mb-5 leading-relaxed">
                     {item.desc}
                   </p>
-                  <button
-                    onClick={() => addToCart(item)}
-                    className={`flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all ${
-                      addedItem === item.name ? "scale-95 bg-flameOrange/20" : ""
-                    }`}
-                  >
-                    <Plus size={15} /> Agregar al pedido
-                  </button>
+                  <div className="relative">
+                    <button
+                      onClick={() => addToCart(item)}
+                      className={`flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all ${
+                        addedItem === item.name ? "scale-95 bg-flameOrange/20" : ""
+                      }`}
+                    >
+                      <Plus size={15} /> Agregar al pedido
+                    </button>
+                    <AnimatedBorder size={200} duration={2.5} delay={i * 0.3} rounded="rounded-full" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -575,7 +580,8 @@ export default function App() {
       {/* Cart Modal */}
       {cartOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-gradient-to-b from-[#1a1612] to-[#0d0b09] border border-white/10 rounded-2xl w-full max-w-lg max-h-[80vh] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.5)]">
+          <div className="relative bg-gradient-to-b from-[#1a1612] to-[#0d0b09] border border-white/10 rounded-2xl w-full max-w-lg max-h-[80vh] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.5)]">
+            <AnimatedBorder size={400} duration={3.5} delay={0} />
             <div className="flex items-center justify-between p-6 border-b border-white/10">
               <h2 className="font-display text-xl font-bold">Tu Pedido</h2>
               <button
@@ -656,7 +662,7 @@ export default function App() {
             </div>
             {cart.length > 0 && (
               <div className="p-6 border-t border-white/10">
-                <div className="mb-4">
+                <div className="mb-4 relative">
                   <label className="block text-white/70 text-sm mb-2">Tu nombre (opcional)</label>
                   <input
                     type="text"
@@ -665,6 +671,7 @@ export default function App() {
                     placeholder="Escribe tu nombre..."
                     className="w-full bg-white/[0.05] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-flameOrange/50 transition-colors"
                   />
+                  <AnimatedBorder size={300} duration={3} delay={0} rounded="rounded-lg" />
                 </div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-white/70">Total</span>
@@ -672,15 +679,18 @@ export default function App() {
                     Bs {cartTotal}
                   </span>
                 </div>
-                <button
-                  onClick={() => {
-                    setShowConfirmDialog(true);
-                    setCartOpen(false);
-                  }}
-                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-flameRed to-flameGold text-black font-bold py-3 rounded-full hover:shadow-[0_10px_30px_rgba(255,120,0,0.4)] hover:-translate-y-0.5 transition-all"
-                >
-                  <MessageCircle size={18} /> Pedir por WhatsApp
-                </button>
+                <div className="relative">
+                  <button
+                    onClick={() => {
+                      setShowConfirmDialog(true);
+                      setCartOpen(false);
+                    }}
+                    className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-flameRed to-flameGold text-black font-bold py-3 rounded-full hover:shadow-[0_10px_30px_rgba(255,120,0,0.4)] hover:-translate-y-0.5 transition-all"
+                  >
+                    <MessageCircle size={18} /> Pedir por WhatsApp
+                  </button>
+                  <AnimatedBorder size={300} duration={2} delay={0} rounded="rounded-full" />
+                </div>
               </div>
             )}
           </div>
@@ -690,7 +700,8 @@ export default function App() {
       {/* Confirmation Dialog */}
       {showConfirmDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-gradient-to-b from-[#1a1612] to-[#0d0b09] border border-white/10 rounded-2xl w-full max-w-md overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.5)]">
+          <div className="relative bg-gradient-to-b from-[#1a1612] to-[#0d0b09] border border-white/10 rounded-2xl w-full max-w-md overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.5)]">
+            <AnimatedBorder size={350} duration={3} delay={0} />
             <div className="p-6">
               {cart.length === 0 ? (
                 <>
@@ -721,18 +732,21 @@ export default function App() {
                     >
                       Cancelar
                     </button>
-                    <a
-                      href={generateCartWhatsAppLink()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        setCart([]);
-                        setShowConfirmDialog(false);
-                      }}
-                      className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-flameRed to-flameGold text-black font-bold py-3 rounded-full hover:shadow-[0_10px_30px_rgba(255,120,0,0.4)] hover:-translate-y-0.5 transition-all"
-                    >
-                      <MessageCircle size={18} /> Enviar
-                    </a>
+                    <div className="flex-1 relative">
+                      <a
+                        href={generateCartWhatsAppLink()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          setCart([]);
+                          setShowConfirmDialog(false);
+                        }}
+                        className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-flameRed to-flameGold text-black font-bold py-3 rounded-full hover:shadow-[0_10px_30px_rgba(255,120,0,0.4)] hover:-translate-y-0.5 transition-all"
+                      >
+                        <MessageCircle size={18} /> Enviar
+                      </a>
+                      <AnimatedBorder size={200} duration={2} delay={0} rounded="rounded-full" />
+                    </div>
                   </div>
                 </>
               )}
