@@ -18,7 +18,7 @@ export const MENU_ITEMS = [
   {
     name: "La Suprema",
     desc: "Papa frita, chorizo, queso muzarella derretido, alitas de pollo, costillas de cerdo, tocino",
-    price: "89",
+    price: "98",
     tag: "Más pedido",
     image: "/images/menu/la-suprema.jpeg",
   },
