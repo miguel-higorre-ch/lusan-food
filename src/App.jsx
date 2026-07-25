@@ -88,27 +88,37 @@ export default function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const addToCart = (item) => {
-    setAddedItem(item.name);
+  const addToCart = (item, variant = null) => {
+    const cartItemId = variant ? `${item.name}-${variant.name}` : item.name;
+    setAddedItem(cartItemId);
     setCart((prevCart) => {
-      const existingItem = prevCart.find((i) => i.name === item.name);
+      const existingItem = prevCart.find((i) => i.cartItemId === cartItemId);
       if (existingItem) {
         return prevCart.map((i) =>
-          i.name === item.name ? { ...i, quantity: i.quantity + 1 } : i
+          i.cartItemId === cartItemId ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
-      return [...prevCart, { ...item, quantity: 1 }];
+      return [
+        ...prevCart,
+        {
+          ...item,
+          cartItemId,
+          variantName: variant?.name || null,
+          price: variant?.price || item.price,
+          quantity: 1,
+        },
+      ];
     });
   };
 
-  const removeFromCart = (itemName) => {
-    setCart((prevCart) => prevCart.filter((i) => i.name !== itemName));
+  const removeFromCart = (cartItemId) => {
+    setCart((prevCart) => prevCart.filter((i) => i.cartItemId !== cartItemId));
   };
 
-  const updateQuantity = (itemName, delta) => {
+  const updateQuantity = (cartItemId, delta) => {
     setCart((prevCart) =>
       prevCart.map((i) => {
-        if (i.name === itemName) {
+        if (i.cartItemId === cartItemId) {
           const newQuantity = Math.max(1, i.quantity + delta);
           return { ...i, quantity: newQuantity };
         }
@@ -121,15 +131,18 @@ export default function App() {
 
   const generateCartWhatsAppLink = () => {
     if (cart.length === 0) return WA_LINK;
-    
+
     const message = cart
-      .map((item) => `- ${item.quantity}x ${item.name} (Bs ${item.price} c/u)`)
+      .map((item) => {
+        const variantText = item.variantName ? ` (${item.variantName})` : "";
+        return `- ${item.quantity}x ${item.name}${variantText} (Bs ${item.price} c/u)`;
+      })
       .join("\n");
-    
+
     const total = cart.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
     const namePart = customerName ? `Mi nombre es: ${customerName}\n\n` : "";
     const fullMessage = `Hola Lusan Food, quiero hacer un pedido:\n\n${namePart}${message}\n\nTotal: Bs ${total}`;
-    
+
     return `https://wa.me/59160341419?text=${encodeURIComponent(fullMessage)}`;
   };
 
@@ -381,30 +394,55 @@ export default function App() {
                       <h3 className="font-bold text-lg leading-tight">
                         {item.name}
                       </h3>
-                      {cart.find((i) => i.name === item.name)?.quantity > 0 && (
+                      {cart
+                        .filter((i) => i.name === item.name)
+                        .reduce((sum, i) => sum + i.quantity, 0) > 0 && (
                         <span className="bg-flameRed text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                          {cart.find((i) => i.name === item.name)?.quantity}
+                          {cart
+                            .filter((i) => i.name === item.name)
+                            .reduce((sum, i) => sum + i.quantity, 0)}
                         </span>
                       )}
                     </div>
-                    <span className="font-display font-extrabold text-flameGold whitespace-nowrap">
-                      Bs {item.price}
-                    </span>
+                    {!item.variants && (
+                      <span className="font-display font-extrabold text-flameGold whitespace-nowrap">
+                        Bs {item.price}
+                      </span>
+                    )}
                   </div>
                   <p className="text-white/50 text-sm mb-5 leading-relaxed">
                     {item.desc}
                   </p>
-                  <div className="relative">
-                    <button
-                      onClick={() => addToCart(item)}
-                      className={`flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all ${
-                        addedItem === item.name ? "scale-95 bg-flameOrange/20" : ""
-                      }`}
-                    >
-                      <Plus size={15} /> Agregar al pedido
-                    </button>
-                    <AnimatedBorder size={200} duration={2.5} delay={i * 0.3} rounded="rounded-full" />
-                  </div>
+                  {item.variants ? (
+                    <div className="space-y-2">
+                      {item.variants.map((variant, vIndex) => (
+                        <div key={vIndex} className="relative">
+                          <button
+                            onClick={() => addToCart(item, variant)}
+                            className={`flex items-center justify-between w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 px-4 rounded-full hover:bg-flameOrange/10 transition-all ${
+                              addedItem === `${item.name}-${variant.name}` ? "scale-95 bg-flameOrange/20" : ""
+                            }`}
+                          >
+                            <span>{variant.name}</span>
+                            <span className="font-display font-extrabold">Bs {variant.price}</span>
+                          </button>
+                          <AnimatedBorder size={200} duration={2.5} delay={i * 0.3 + vIndex * 0.1} rounded="rounded-full" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      <button
+                        onClick={() => addToCart(item)}
+                        className={`flex items-center justify-center gap-2 w-full border border-flameOrange/40 text-flameGold font-semibold text-sm py-2.5 rounded-full hover:bg-flameOrange/10 transition-all ${
+                          addedItem === item.name ? "scale-95 bg-flameOrange/20" : ""
+                        }`}
+                      >
+                        <Plus size={15} /> Agregar al pedido
+                      </button>
+                      <AnimatedBorder size={200} duration={2.5} delay={i * 0.3} rounded="rounded-full" />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -425,8 +463,8 @@ export default function App() {
               </h3>
               <p className="text-black/70 font-medium mt-1">
                 Papa frita, chorizo, queso muzarella derretido, alitas de pollo,
-                costillas de cerdo, tocino + 2 gaseosas de 500ml.{" "}
-                <span className="font-bold">Bs 89</span>
+                costillas de cerdo, tocino.{" "}
+                <span className="font-bold">Bs 98</span>
               </p>
             </div>
             <button
@@ -632,25 +670,28 @@ export default function App() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-sm truncate">{item.name}</h3>
+                        {item.variantName && (
+                          <p className="text-white/50 text-xs">{item.variantName}</p>
+                        )}
                         <p className="text-flameGold text-sm font-bold">Bs {item.price}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => updateQuantity(item.name, -1)}
+                          onClick={() => updateQuantity(item.cartItemId, -1)}
                           className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors"
                         >
                           <Minus size={14} />
                         </button>
                         <span className="w-8 text-center font-semibold">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.name, 1)}
+                          onClick={() => updateQuantity(item.cartItemId, 1)}
                           className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors"
                         >
                           <Plus size={14} />
                         </button>
                       </div>
                       <button
-                        onClick={() => removeFromCart(item.name)}
+                        onClick={() => removeFromCart(item.cartItemId)}
                         className="text-white/40 hover:text-flameRed transition-colors"
                       >
                         <Trash2 size={18} />

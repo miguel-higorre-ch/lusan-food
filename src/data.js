@@ -37,13 +37,31 @@ export const MENU_ITEMS = [
     image: "/images/menu/la-clasica.jpeg",
   },
   {
-    name: "SalchiCostilla ",
+    name: "Salchi Costilla ",
     desc: "Papa frita, platano frito, chorizo, costilla de cerdo",
     price: "28",
     tag: null,
     image: "/images/menu/salchi-costilla.jpeg",
   },
   // Removed: Papas Lusan, Wrap Picante, Limonada de Coco
+  {
+    name: "La Peque",
+    desc: "Papa frita, chorizo, alitas, costilla de cerdo",
+    price: "28",
+    tag: null,
+    image: "/images/menu/la-peque.jpeg",
+    variants: [
+      { name: "Con Coca Cola 300ml", price: "28" },
+      { name: "Sin bebida", price: "25" },
+    ],
+  },
+  {
+    name: "La Salchi Duo",
+    desc: "Papa frita, chorizo, queso muzarella derretido, alitas, costilla de cerdo, Coca Cola 500ml",
+    price: "45",
+    tag: null,
+    image: "/images/menu/la-salchi-duo.jpeg",
+  },
 ];
 
 export const VALUES = [
