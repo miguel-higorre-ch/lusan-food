@@ -25,42 +25,45 @@ export const MENU_ITEMS = [
   {
     name: "La Titular",
     desc: "Papa frita, chorizo, queso muzarella derretido, alitas de pollo, costillas de cerdo",
-    price: "38",
+    price: "45",
     tag: null,
     image: "/images/menu/la-titular.jpeg",
   },
   {
     name: "La Clasica",
     desc: "Papa frita, chorizo, queso muzarella derretido",
-    price: "21",
+    price: "25",
     tag: null,
     image: "/images/menu/la-clasica.jpeg",
   },
   {
     name: "Salchi Costilla ",
     desc: "Papa frita, platano frito, chorizo, costilla de cerdo",
-    price: "28",
+    price: "35",
     tag: null,
     image: "/images/menu/salchi-costilla.jpeg",
   },
   // Removed: Papas Lusan, Wrap Picante, Limonada de Coco
   {
-    name: "La Peque",
-    desc: "Papa frita, chorizo, alitas, costilla de cerdo",
-    price: "28",
+    name: "El Antojo 4",
+    desc: "Papa frita, chorizo, 4 alitas",
+    price: "35",
     tag: null,
-    image: "/images/menu/la-peque.jpeg",
-    variants: [
-      { name: "Con Coca Cola 300ml", price: "28" },
-      { name: "Sin bebida", price: "25" },
-    ],
+    image: "/images/menu/el-antojo-4.jpg",
   },
   {
     name: "La Salchi Duo",
     desc: "Papa frita, chorizo, queso muzarella derretido, alitas, costilla de cerdo, Coca Cola 500ml",
-    price: "45",
+    price: "55",
     tag: null,
     image: "/images/menu/la-salchi-duo.jpeg",
+  },
+  {
+    name: "La Salchitocino",
+    desc: "Papa frita, chorizo, tocino",
+    price: "55",
+    tag: null,
+    image: "/images/menu/la-salchitocino.jpg",
   },
 ];
 
