@@ -464,7 +464,7 @@ export default function App() {
               <p className="text-black/70 font-medium mt-1">
                 Papa frita, chorizo, queso muzarella derretido, alitas de pollo,
                 costillas de cerdo, tocino.{" "}
-                <span className="font-bold">Bs 98</span>
+                <span className="font-bold">Bs 115</span>
               </p>
             </div>
             <button
