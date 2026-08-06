@@ -49,7 +49,7 @@ export const MENU_ITEMS = [
     desc: "Papa frita, chorizo, 4 alitas",
     price: "35",
     tag: null,
-    image: "/images/menu/el-antojo-4.jpg",
+    image: "/images/menu/el-antojo-4.jpeg",
   },
   {
     name: "La Salchi Duo",
