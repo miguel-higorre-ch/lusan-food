@@ -17,14 +17,14 @@ export const SOCIAL = {
 export const MENU_ITEMS = [
   {
     name: "La Suprema",
-    desc: "Papa frita, chorizo, queso muzarella derretido, alitas de pollo, costillas de cerdo, tocino, 2 Coca Cola 500ml",
+    desc: "Papa frita, chorizo, queso muzarella derretido, alitas de pollo, costillas de cerdo, tocino",
     price: "115",
     tag: "Más pedido",
     image: "/images/menu/la-suprema.jpeg",
   },
   {
     name: "La Titular",
-    desc: "Papa frita, chorizo, queso muzarella derretido, alitas de pollo, costillas de cerdo, 1 Coca Cola 500ml",
+    desc: "Papa frita, chorizo, queso muzarella derretido, alitas de pollo, costillas de cerdo",
     price: "45",
     tag: null,
     image: "/images/menu/la-titular.jpeg",
@@ -53,8 +53,8 @@ export const MENU_ITEMS = [
   },
   {
     name: "La Salchi Duo",
-    desc: "Papa frita, chorizo, queso muzarella derretido, alitas, costilla de cerdo, Coca Cola 500ml",
-    price: "50",
+    desc: "Papa frita, chorizo, queso muzarella derretido, alitas, costilla de cerdo",
+    price: "55",
     tag: null,
     image: "/images/menu/la-salchi-duo.jpeg",
   },
