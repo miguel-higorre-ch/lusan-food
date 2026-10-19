@@ -17,6 +17,7 @@ import FlameLogo from "./components/FlameLogo.jsx";
 import Ember from "./components/Ember.jsx";
 import TikTokIcon from "./components/TikTokIcon.jsx";
 import AnimatedBorder from "./components/AnimatedBorder.jsx";
+import InstallButton from "./components/InstallButton.jsx";
 import { WA_LINK, generateWhatsAppLink, MENU_ITEMS, VALUES, TESTIMONIALS, SOCIAL } from "./data.js";
 
 export default function App() {
@@ -204,6 +205,7 @@ export default function App() {
                 </span>
               )}
             </button>
+            <InstallButton />
             <button
               onClick={() => setShowConfirmDialog(true)}
               className="flex items-center gap-2 bg-gradient-to-r from-flameRed to-flameGold text-black font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_6px_20px_rgba(255,120,0,0.4)] hover:shadow-[0_8px_28px_rgba(255,120,0,0.6)] hover:-translate-y-0.5 transition-all"
@@ -244,6 +246,9 @@ export default function App() {
                 </span>
               )}
             </button>
+            <div className="flex justify-center mt-2">
+              <InstallButton />
+            </div>
             <button
               onClick={() => {
                 setShowConfirmDialog(true);
@@ -303,39 +308,6 @@ export default function App() {
           <p className="mt-6 text-xs uppercase tracking-[0.2em] text-white/35">
             Pedidos: 60341419
           </p>
-        </div>
-      </section>
-
-      {/* Value props */}
-      <section
-        id="nosotros"
-        className="relative py-24 px-6 bg-gradient-to-b from-ink to-ink2"
-      >
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs uppercase tracking-[0.3em] text-flameOrange font-semibold">
-              Por qué Lusan Food
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mt-3">
-              La receta detrás del antojo
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {VALUES.map((v, i) => (
-              <div
-                key={i}
-                className="card-3d bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/10 rounded-2xl p-8 text-center shadow-[0_15px_40px_rgba(0,0,0,0.4)]"
-              >
-                <div className="w-14 h-14 mx-auto mb-5 rounded-xl bg-gradient-to-br from-flameGold to-flameRed flex items-center justify-center shadow-[0_8px_20px_rgba(255,120,0,0.4)]">
-                  <v.icon size={26} className="text-black" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">{v.title}</h3>
-                <p className="text-white/55 text-sm leading-relaxed">
-                  {v.desc}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -444,6 +416,39 @@ export default function App() {
                     </div>
                   )}
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Value props */}
+      <section
+        id="nosotros"
+        className="relative py-24 px-6 bg-gradient-to-b from-ink to-ink2"
+      >
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs uppercase tracking-[0.3em] text-flameOrange font-semibold">
+              Por qué Lusan Food
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mt-3">
+              La receta detrás del antojo
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {VALUES.map((v, i) => (
+              <div
+                key={i}
+                className="card-3d bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/10 rounded-2xl p-8 text-center shadow-[0_15px_40px_rgba(0,0,0,0.4)]"
+              >
+                <div className="w-14 h-14 mx-auto mb-5 rounded-xl bg-gradient-to-br from-flameGold to-flameRed flex items-center justify-center shadow-[0_8px_20px_rgba(255,120,0,0.4)]">
+                  <v.icon size={26} className="text-black" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{v.title}</h3>
+                <p className="text-white/55 text-sm leading-relaxed">
+                  {v.desc}
+                </p>
               </div>
             ))}
           </div>

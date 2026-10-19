@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="102.4" fill="#000000"/>
+  <defs>
+    <linearGradient id="flameGradient" x1="256" y1="50" x2="256" y2="462" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD700"/>
+      <stop offset="0.5" stop-color="#FF5A00"/>
+      <stop offset="1" stop-color="#FF0000"/>
+    </linearGradient>
+  </defs>
+  <path d="M256 50C256 50 180 160 180 240C180 310 210 380 256 420C302 380 332 310 332 240C332 160 256 50 256 50Z" fill="url(#flameGradient)"/>
+  <path d="M256 100C256 100 210 200 210 240C210 290 230 350 256 380C282 350 302 290 302 240C302 200 256 100 256 100Z" fill="#FFB800"/>
+  <path d="M256 150C256 150 230 200 230 240C230 270 242 310 256 330C270 310 282 270 282 240C282 200 256 150 256 150Z" fill="#FFE44D"/>
+</svg>

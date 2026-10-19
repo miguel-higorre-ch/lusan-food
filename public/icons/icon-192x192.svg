@@ -1,0 +1,13 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="38.4" fill="#000000"/>
+  <defs>
+    <linearGradient id="flameGradient" x1="96" y1="20" x2="96" y2="172" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD700"/>
+      <stop offset="0.5" stop-color="#FF5A00"/>
+      <stop offset="1" stop-color="#FF0000"/>
+    </linearGradient>
+  </defs>
+  <path d="M96 20C96 20 70 60 70 90C70 115 80 140 96 156C112 140 122 115 122 90C122 60 96 20 96 20Z" fill="url(#flameGradient)"/>
+  <path d="M96 40C96 40 80 70 80 90C80 110 86 130 96 140C106 130 112 110 112 90C112 70 96 40 96 40Z" fill="#FFB800"/>
+  <path d="M96 60C96 60 88 75 88 90C88 100 92 115 96 120C100 115 104 100 104 90C104 75 96 60 96 60Z" fill="#FFE44D"/>
+</svg>
