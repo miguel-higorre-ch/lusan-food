@@ -5,12 +5,8 @@ import AnimatedBorder from "./AnimatedBorder.jsx";
 export default function InstallButton() {
   const { isInstallable, isInstalled, promptInstall, isIOS } = usePWAInstall();
 
-  // Don't show if already installed or not installable
+  // Don't show if already installed
   if (isInstalled) {
-    return null;
-  }
-
-  if (!isInstallable && !isIOS) {
     return null;
   }
 
@@ -20,8 +16,13 @@ export default function InstallButton() {
       alert(
         "Para instalar la app en iOS:\n\n1. Toca el botón compartir (cuadrado con flecha)\n2. Desliza hacia abajo y toca 'Agregar a inicio'\n3. Toca 'Agregar' para confirmar"
       );
-    } else {
+    } else if (isInstallable) {
       promptInstall();
+    } else {
+      // Not yet installable - show info
+      alert(
+        "La app se instalará cuando estés listo.\n\nEn Android:\n- Espera unos segundos y recarga la página\n- O usa el menú del navegador (3 puntos) → 'Instalar app'\n\nEn iOS:\n- Usa el botón compartir → 'Agregar a inicio'"
+      );
     }
   };
 
